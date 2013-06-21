@@ -1,7 +1,7 @@
 package org.pform.servicios.informes
 
 import grails.converters.JSON
-import org.pform.informes.PrimerTrimestre
+import org.pform.informes.*
 
 class PrimerTrimestresController {
 
@@ -14,6 +14,7 @@ class PrimerTrimestresController {
 	
 	def save() {
 		try {	
+			def embInicial = EmbarazoInicial.get(params.idEmbarazoInicial)
 			//parseamos las fechas antes de pasarlas
 			params.infoEgesFur = new Date().parse(dateParser, params.infoEgesFur + hhDef)
 			params.infoEgesFpp = new Date().parse(dateParser, params.infoEgesFpp + hhDef)
@@ -22,6 +23,7 @@ class PrimerTrimestresController {
 			//nueva row
 			def ptrimestre = new PrimerTrimestre(params)
 			ptrimestre.rutPac = session.pac_rut
+			ptrimestre.embarazoInicial = embInicial
 			ptrimestre.save()
 			println ptrimestre.errors
 			if(ptrimestre.validate())

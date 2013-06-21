@@ -6,6 +6,7 @@ class PrimerTrimestre {
 	//datos geenrales de la entidad
 	Date tableFechaIngreso =  new Date()
 	String rutPac
+	EmbarazoInicial embarazoInicial
 	//Informacion
 	//****Edad Gestacional
 	Date infoEgesFur

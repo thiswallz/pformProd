@@ -12,4 +12,5 @@ import java.util.Date;
 class ElementoGeneral {
 
 	Date tableFechaIngreso =  new Date()
+	
 }
