@@ -58,6 +58,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     xtype: 'datefield',
                                     name : 'fur',
                                     fieldLabel: 'FUR',
+                                    readOnly: true,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -66,6 +67,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     flex: 1,
                                     allowDecimals: false,
                                     minValue: 0,
+                                    readOnly: true,
                                     step: 1
                                 }]
                             },{
@@ -75,6 +77,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     xtype: 'datefield',
                                     name : 'fpp',
                                     fieldLabel: 'FPP',
+                                    editable : false,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -90,6 +93,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     xtype: 'datefield',
                                     name : 'fechaecoprecoz',
                                     fieldLabel: 'Fecha ECO PRECOZ',
+                                    editable : false,
                                     flex: 1
                                 }]
                             },{
@@ -108,9 +112,11 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     flex: 1
                                 },{
                                     xtype: 'combo',
-                                    name : 'gestacion',
+                                    name : 'infoEgesGestacion',
                                     fieldLabel: 'Gestacion' ,
-                                    store: [[1,'Unica']],
+                                    store: [[1,'UNICA'],
+                                    [2,'DOBLE']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -154,9 +160,19 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     fieldLabel: 'Posición' ,
                                     flex: 1
                                 },{
-                                    xtype: 'radio',
-                                    name : 'lcf',
+                                    xtype: 'fieldcontainer',
+                                    //name : 'infoEgesLcf',
+                                    defaultType: 'radiofield',
                                     fieldLabel: 'LCF',
+                                    items: [{
+                                            boxLabel  : 'Ausentes',
+                                            name      : 'infoEgesLcf',
+                                            inputValue: 'AUSENTES'
+                                        }, {
+                                            boxLabel  : 'Presentes',
+                                            name      : 'infoEgesLcf',
+                                            inputValue: 'PRESENTES'
+                                        }],
                                     flex: 1 
                                 }]
                             },{
@@ -171,9 +187,13 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     flex: 1
                                 },{
                                     xtype: 'combo',
-                                    name : 'presentacion',
+                                    name : 'infoEgesPresentacion',
                                     fieldLabel: 'Presentación' ,
-                                    store: [[1,'CEFALICA']],
+                                    store: [[1,'CEFALICA'],
+                                    [2,'PODALICA'],
+                                    [3,'TRANSVERSA'],
+                                    [4,'TRANSICION']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -350,12 +370,14 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 name : 'derivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
-                                         [2,'Dra.']]
+                                         [2,'Dra.']],
+                                editable : false
                             },
                             {
                                 xtype: 'datefield',
                                 name : 'citacion',
-                                fieldLabel: 'Citacion'
+                                fieldLabel: 'Citacion',
+                                editable : false
                             }]
                         },{
                             xtype: 'fieldset',

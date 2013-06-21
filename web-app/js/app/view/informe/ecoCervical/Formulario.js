@@ -230,12 +230,14 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                 name : 'derivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
-                                         [2,'Dra.']]
+                                         [2,'Dra.']],
+                                editable : false
                             },
                             {
                                 xtype: 'datefield',
                                 name : 'citacion',
-                                fieldLabel: 'Citacion'
+                                fieldLabel: 'Citacion',
+                                editable : false
                             }]
                         },{
                             xtype: 'fieldset',

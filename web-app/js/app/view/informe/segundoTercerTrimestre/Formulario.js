@@ -108,7 +108,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     format: 'd/m/Y',
                                     name : 'infoEgesFpp',
                                     fieldLabel: 'FPP',
-                                    flex: 1
+                                    flex: 1,
+                                    editable : false
                                 },{
                                     xtype: 'numberfield',
                                     name : 'infoEgesEcoPrecoz',
@@ -124,7 +125,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     format: 'd/m/Y',
                                     name : 'infoEgesFechaEcoPrecoz',
                                     fieldLabel: 'Fecha ECO PRECOZ',
-                                    flex: 1
+                                    flex: 1,
+                                    editable : false
                                 }]
                             },{
                                 xtype:'container',
@@ -144,7 +146,9 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     xtype: 'combo',
                                     name : 'infoEgesGestacion',
                                     fieldLabel: 'Gestacion' ,
-                                    store: [[1,'Unica']],
+                                    store: [[1,'UNICA'],
+                                    [2,'DOBLE']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -188,9 +192,19 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'Posición' ,
                                     flex: 1
                                 },{
-                                    xtype: 'radio',
-                                    name : 'infoEgesLcf',
+                                    xtype: 'fieldcontainer',
+                                    //name : 'infoEgesLcf',
+                                    defaultType: 'radiofield',
                                     fieldLabel: 'LCF',
+                                    items: [{
+                                            boxLabel  : 'Ausentes',
+                                            name      : 'infoEgesLcf',
+                                            inputValue: 'AUSENTES'
+                                        }, {
+                                            boxLabel  : 'Presentes',
+                                            name      : 'infoEgesLcf',
+                                            inputValue: 'PRESENTES'
+                                        }],
                                     flex: 1 
                                 }]
                             },{
@@ -207,7 +221,11 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     xtype: 'combo',
                                     name : 'infoEgesPresentacion',
                                     fieldLabel: 'Presentación' ,
-                                    store: [[1,'CEFALICA']],
+                                    store: [[1,'CEFALICA'],
+                                    [2,'PODALICA'],
+                                    [3,'TRANSVERSA'],
+                                    [4,'TRANSICION']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -219,9 +237,14 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'Troboflasto',
                                     flex: 1
                                 },{
-                                    xtype: 'textfield',
+                                    xtype: 'combo',
                                     name : 'infoEgesPlacenta',
                                     fieldLabel: 'Placenta',
+                                    store: [[1,'BAJA'],
+                                    [2,'PREVIA'],
+                                    [3,'PREVIA OCLUSIVA'],
+                                    [4,'NORMOINSERTA']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -231,13 +254,17 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     xtype: 'combo',
                                     name : 'infoEgesLocalizacion',
                                     fieldLabel: 'Localización' ,
-                                    store: [[1,'Anterior']],
+                                    store: [[1,'ANTERIOR'],
+                                    [2,'POSTERIOR'],
+                                    [3,'ANTERO POSTERIOR']],
+                                    editable: false,
                                     flex: 1
                                 },{
                                     xtype: 'combo',
                                     name : 'infoEgesInsercion',
                                     fieldLabel: 'Inserción' ,
                                     store: [[1,'NORMOINSERTA']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -247,41 +274,52 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     xtype: 'combo',
                                     name : 'infoEgesMadurez',
                                     fieldLabel: 'Madurez' ,
-                                    store: [[1,'GRADO 0']],
+                                    store: [[1,'NINGUNA'],
+                                    [2,'GRADO 0'],
+                                    [3,'GRADO 1'],
+                                    [4,'GRADO 2']],
+                                    editable: false,
                                     flex: 1
                                 },{
-                                    xtype: 'textfield',
-                                    name : 'infoEgesGrado',
-                                    fieldLabel: 'Grado' ,
-                                    flex: 1 
-                                }]
-                            },{
-                                xtype:'container',
-                                layout: 'hbox',
-                                items:[{
                                     xtype: 'textfield',
                                     name : 'infoEgesInterfase',
                                     fieldLabel: 'Interfase',
                                     flex: 1
-                                },{
-                                    xtype: 'textfield',
-                                    name : 'infoEgesCordon',
-                                    fieldLabel: 'Cordon',
-                                    flex: 1 
                                 }]
                             },{
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
+                                    xtype: 'textfield',
+                                    name : 'infoEgesCordon',
+                                    fieldLabel: 'Cordon',
+                                    flex: 1 
+                                },{
                                     xtype: 'combo',
                                     name : 'infoEgesLa',
                                     fieldLabel: 'LA' ,
-                                    store: [[1,'LEVEMENTE']],
+                                    store: [[1,'LEVEMENTE'],
+                                    [2,'DISMINUIDO'],
+                                    [3,'AUMNETADO'],
+                                    [4,'OLIGOAMNIOS'],
+                                    [5,'POLIHIDROAMNIOS']],
+                                    editable: false,
                                     flex: 1
-                                },{
+                                }]
+                            },{
+                                xtype:'container',
+                                layout: 'hbox',
+                                items:[{
                                     xtype: 'textfield',
                                     name : 'infoEgesPresentaLa',
-                                    fieldLabel: 'PRESENTA LA' ,
+                                    fieldLabel: 'Indice LA' ,
+                                    flex: 1 
+                                },{
+                                    xtype: 'textfield',
+                                    name : 'infoEgesPresentaLaTabla',
+                                    fieldLabel: 'Indice por Tabla' ,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             }]
@@ -319,6 +357,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -326,6 +366,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -350,6 +392,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -357,6 +401,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -381,6 +427,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -388,6 +436,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -412,6 +462,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -419,6 +471,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -443,6 +497,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -450,6 +506,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -474,6 +532,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -481,6 +541,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -505,6 +567,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -512,6 +576,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -536,6 +602,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -543,6 +611,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             }]
@@ -574,6 +644,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -581,6 +653,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -605,6 +679,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -612,6 +688,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -636,6 +714,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -643,6 +723,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -667,6 +749,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -674,6 +758,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -698,6 +784,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -705,6 +793,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             },
@@ -729,6 +819,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
@@ -736,6 +828,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             }]
@@ -767,6 +861,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'Indice Tabla' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 }]
                             },{
@@ -790,6 +886,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'Indice Tabla' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 }]
                             },{
@@ -813,6 +911,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'Indice Tabla' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 }]
                             }]
@@ -831,7 +931,9 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     allowDecimals: true,
                                     minValue: 0,
                                     step: 0.1,
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    value : 0,
+                                    readOnly:true
                                 },
                                 items:[{
                                     name : 'biomEstPesoHadlock',
@@ -854,7 +956,10 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     allowDecimals: true,
                                     minValue: 0,
                                     step: 0.1,
-                                    labelWidth: 80
+                                    labelWidth: 80,
+
+                                    readOnly: true,
+                                    value : 0,
                                 },
                                 items:[{
                                     name : 'biomEstPesoShepard',
@@ -867,6 +972,8 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     fieldLabel: 'Indice Tabla' ,
                                     step: 1,
                                     minValue: 0,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1
                                 }]
                             },{
@@ -877,7 +984,9 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     allowDecimals: true,
                                     minValue: 0,
                                     step: 0.1,
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    value : 0,
+                                    readOnly:true
                                 },
                                 items:[{
                                     name : 'biomEstPesoTodasHadlock',
@@ -904,7 +1013,9 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     allowDecimals: true,
                                     minValue: 0,
                                     step: 0.1,
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    value : 0,
+                                    readOnly:true
                                 },
                                 items:[{
                                     name : 'biomOtrasAnexFa',
@@ -921,7 +1032,9 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     allowDecimals: true,
                                     minValue: 0,
                                     step: 0.1,
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    value : 0,
+                                    readOnly:true
                                 },
                                 items:[{
                                     name : 'biomOtrasAnexDdbp',
@@ -941,6 +1054,7 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     xtype: 'numberfield',
                                     allowDecimals: true,
                                     minValue: 0,
+                                    maxValue: 2,
                                     step: 0.1,
                                     labelWidth: 80
                                 },
@@ -958,6 +1072,7 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                     xtype: 'numberfield',
                                     allowDecimals: true,
                                     minValue: 0,
+                                    maxValue: 2,
                                     step: 0.1,
                                     labelWidth: 80
                                 },
@@ -1025,13 +1140,15 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                 name : 'diagnDerivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
-                                         [2,'Dra.']]
+                                         [2,'Dra.']],
+                                editable : false
                             },
                             {
                                 xtype: 'datefield',
                                 format: 'd/m/Y',
                                 name : 'diagnCitacion',
-                                fieldLabel: 'Citacion'
+                                fieldLabel: 'Citacion',
+                                editable : false
                             }]
                         },{
                             xtype: 'fieldset',

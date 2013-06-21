@@ -49,7 +49,8 @@ Ext.define('PForm.view.informe.embarazoInicial.Formulario', {
                                 xtype: 'datefield',
                                 name : 'infoEgesFur',
                                 format: 'd/m/Y',
-                                fieldLabel: 'FUR'
+                                fieldLabel: 'FUR',
+                                editable : false
                             },
                             {
                                 xtype: 'textfield',
@@ -139,13 +140,15 @@ Ext.define('PForm.view.informe.embarazoInicial.Formulario', {
                                 name : 'diagnInfogenDerivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
-                                         [2,'Dra.']]
+                                         [2,'Dra.']],
+                                editable : false
                             },
                             {
                                 xtype: 'datefield',
                                 format: 'd/m/Y',
                                 name : 'diagnInfogenCitacion',
-                                fieldLabel: 'Citacion'
+                                fieldLabel: 'Citacion',
+                                editable : false
                             }]
                         }]
                     }]
