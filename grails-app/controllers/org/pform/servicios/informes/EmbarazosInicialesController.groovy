@@ -19,8 +19,8 @@ class EmbarazosInicialesController {
 			//nueva row
 			def einicial = new EmbarazoInicial(params)
 			einicial.rutPac = session.pac_rut
-			println einicial.errors
 			einicial.save()
+			println einicial.errors
 			if(einicial.validate())
 				render jsonResponseOK as JSON
 			else
