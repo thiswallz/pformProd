@@ -42,5 +42,14 @@ class EmbarazosInicialesController {
 			throw new RuntimeException("Error.")
 		}
 	}
-
+	def getFields() {
+		def einicial = EmbarazoInicial.get(params.id)
+		
+		if(einicial){
+			jsonResponseOK.data = einicial
+			render jsonResponseOK as JSON
+		}else{
+			throw new RuntimeException("Error.")
+		}
+	}
 }

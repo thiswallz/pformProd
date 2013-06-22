@@ -3,9 +3,10 @@ Ext.define('PForm.controller.admin.ControlGeneral', {
 
     stores: ['Recordatorios'],
 
-    models: ['Recordatorio'],
+    models: ['Recordatorio', 'EmbarazoInicial'],
 
-    views: ['admin.MenuTop' , 'admin.Principal','admin.Home','admin.Ficha','admin.Grid','admin.seleccionInformes'],
+    views: ['admin.MenuTop' , 'admin.Principal','admin.Home','admin.Ficha','admin.Grid','admin.seleccionInformes',
+    'informe.embarazoInicial.ViewFormulario'],
 
     refs: [{
             ref: 'admingrid',
@@ -41,9 +42,39 @@ Ext.define('PForm.controller.admin.ControlGeneral', {
             },
             'admingrid button[action=salir]': {
                 click: this.salir
+            },
+            'admingrid button[action=verInforme]': {
+                click: this.verInforme
+            },
+            'admingrid button[action=addEInicial]': {
+                click: this.addEInicial
             }
 
+
+
         });
+    },
+    addEInicial: function(){
+        var edit = Ext.create('PForm.view.informe.embarazoInicial.Formulario').show();
+    },
+    verInforme: function(){
+        var view = this.getAdmingrid()
+        var selectedRecords = view.getSelectionModel();
+        if(selectedRecords.getCount()<=0){
+            Ext.MessageBox.show({
+                title: 'Seleccion',
+                msg: 'Seleccione un registro',
+                buttons: Ext.MessageBox.OK,
+                icon: Ext.MessageBox.IFO
+            });
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in01'){
+            var win = Ext.create('PForm.view.informe.embarazoInicial.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
+
     },
     salir: function(){
         Ext.Ajax.request({
@@ -67,8 +98,49 @@ Ext.define('PForm.controller.admin.ControlGeneral', {
         });
     },
     crearInforme: function(){
-        var createWindInformes = Ext.widget('wininformes');
-        createWindInformes.show();
+        var view = this.getAdmingrid()
+        var selectedRecords = view.getSelectionModel();
+        if(selectedRecords.getCount()<=0){
+            Ext.MessageBox.show({
+                title: 'Seleccion',
+                msg: 'Seleccione un registro',
+                buttons: Ext.MessageBox.OK,
+                icon: Ext.MessageBox.IFO
+            });
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme != 'in01'){
+            Ext.MessageBox.show({
+                title: 'Seleccion',
+                msg: 'Seleccione un informe Embarazo Inicial',
+                buttons: Ext.MessageBox.OK,
+                icon: Ext.MessageBox.IFO
+            });
+            return;
+        }
+
+        Ext.Ajax.request({
+            scope: this,
+            url: 'general/getPermisosCreacion',
+            params: {
+                id: selectedRecords.getLastSelected().data.id
+            },
+            success: function(response){
+                var text = response.responseText;
+                var jsonin = Ext.JSON.decode(text)
+                var createWindInformes = Ext.widget('wininformes', {permisos: jsonin.data});
+                createWindInformes.show();
+            },
+            failure: function(response){
+                Ext.MessageBox.show({
+                    title: 'Error',
+                    msg: 'Error Interno',
+                    buttons: Ext.MessageBox.OK,
+                    icon: Ext.MessageBox.ERROR
+               });
+            }
+        });
+
     },
     informes: function(button){
         opcion = button.name;

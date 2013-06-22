@@ -26,6 +26,7 @@ Ext.define('PForm.view.informe.primerTrimestre.Formulario', {
 
                     me.down('#infoEgesFurId').setValue(jsonin.data.infoEgesFur)
                     me.down('#infoEgesEgId').setValue(jsonin.data.infoEgesEg)
+                    me.down('#idEmbarazoInicialId').setValue(me.idInforme)
                 },
                 failure: function(response){
                     Ext.MessageBox.show({
@@ -81,6 +82,10 @@ Ext.define('PForm.view.informe.primerTrimestre.Formulario', {
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
+                                    xtype: 'hidden',
+                                    name : 'idEmbarazoInicial',
+                                    itemId: 'idEmbarazoInicialId'
+                                },{
                                     xtype: 'datefield',
                                     readOnly: true,
                                     name : 'infoEgesFur',

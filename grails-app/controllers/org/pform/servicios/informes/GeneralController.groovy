@@ -45,4 +45,29 @@ class GeneralController {
 		jsonResponseOK.data = r 
 		render jsonResponseOK as JSON
 	}
+	def getPermisosCreacion() {
+		def einicial = EmbarazoInicial.get(params.id)
+		def permisos = []
+		if(einicial){
+			
+			//primer trimestre
+			def ptrimestre = PrimerTrimestre.findByEmbarazoInicial(einicial)
+			if(ptrimestre){
+				permisos.add('in02')
+			}
+			//segunfo tercer trimestre
+			def stercertrimestre = SegundoTercerTrimestre.findByEmbarazoInicial(einicial)
+			if(stercertrimestre){
+				permisos.remove('in02')
+				permisos.add('in03')
+			}
+			
+			
+			jsonResponseOK.data = permisos
+			render jsonResponseOK as JSON
+		}else{
+			throw new RuntimeException("Error.")
+		}
+		
+	}
 }

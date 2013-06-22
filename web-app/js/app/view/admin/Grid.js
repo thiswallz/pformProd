@@ -26,11 +26,7 @@ Ext.define('PForm.view.admin.Grid' ,{
 		header: "Doctor",
 		width: 180,
 		dataIndex: 'doctor'
-	},{
-        header: "Accion",
-        width: 180,
-        dataIndex: 'accion'
-    }],
+	}],
 	
 	initComponent: function() {
 		Ext.getStore('Informes').load()
@@ -38,9 +34,19 @@ Ext.define('PForm.view.admin.Grid' ,{
             xtype: 'toolbar',
             items: [{
                 iconCls: 'icon-add',
+                itemId: 'addEInicial',
+                text: 'Crear Informe Embarazo Inicial',
+                action: 'addEInicial'
+            },{
+                iconCls: 'icon-add',
                 itemId: 'add',
                 text: 'Crear Informe',
                 action: 'crearInforme'
+            },{
+                iconCls: 'icon-grid',
+                itemId: 'ver',
+                text: 'Ver Informe',
+                action: 'verInforme'
             },'->',
             {
                 iconCls: 'icon-delete',
