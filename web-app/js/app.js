@@ -8,6 +8,7 @@ Ext.application({
         'informe.EmbarazosIniciales',
         'informe.PrimerosTrimestres',
         'informe.SegundoTercerTrimestres',
+        'informe.Perfiles',
         'admin.ControlGeneral'
     ],
     launch: function(){

@@ -2,7 +2,7 @@ package org.pform.informes
 
 import java.util.Date;
 
-class PrimerTrimestre {
+class Perfil {
 	//datos geenrales de la entidad
 	Date tableFechaIngreso =  new Date()
 	String rutPac
@@ -33,32 +33,13 @@ class PrimerTrimestre {
 	String infoEgesCordon
 	String infoEgesLa
 	String infoEgesPresentaLa
-	String infoEgesPresentaLaTabla
-	//Biometria
-	//****Biometria
-	Double biomGnrlSacoGestacional
-	Double biomGnrlSacoGestacionalOpS
-	Double biomGnrlSacoGestacionalOpD
-	Double biomGnrlLcn
-	Double biomGnrlLcnOpS
-	Double biomGnrlLcnOpD
-	Double biomGnrlEmbrion
-	Double biomGnrlEmbrionOpS
-	Double biomGnrlEmbrionOpD
-	Double biomGnrlSacoVitalino
-	Double biomGnrlSacoVitalinoOpS
-	Double biomGnrlSacoVitalinoOpD
-	Double biomGnrlLcf
-	Double biomGnrlLcfOpS
-	Double biomGnrlLcfOpD
-	//****Otras Medidas Anexas
-	String biomOtmaTn
-	String biomOtmaTnIt
-	String biomOtmaHuesoNasal
-	String biomOtmaHuesoNasalIt
-	String biomOtmaAnguloMaxiloFacial
-	String biomOtmaAnguloMaxiloFacialIt
-	//Diagnosticos
+	//Biofisico
+	//****Perfil Biofisico
+	Double biofisPerfilMovCorporales
+	Double biofisPerfilMovRespiratorio
+	Double biofisPerfilTonoFetal
+	Double biofisPerfilLiquidoOvular
+	//Diagnostico
 	String diagnObservaciones
 	String diagnDiagnosticos
 	String diagnEcografista
@@ -67,11 +48,8 @@ class PrimerTrimestre {
 	String diagnDerivada
 	Date diagnCitacion
 	String diagnConclusiones
-
-
 	
     static constraints = {
-		infoEgesLcf nullable: true
 		infoEgesGemelo nullable: true
 		infoEgesGemelos nullable: true
 		diagnObservaciones maxSize: 1000

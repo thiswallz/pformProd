@@ -36,6 +36,12 @@ class GeneralController {
 			resp.add([id: it.id, codInforme: 'in03',informe: 'Segundo Tercer Trimestre', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
+		//segunfo tercer trimestre
+		def perfiles = Perfil.findByRutPac(session.pac_rut)
+		perfiles.each{
+			resp.add([id: it.id, codInforme: 'in04',informe: 'Informe Perfil', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
+			
+		}
 		jsonResponseOK.data = resp
 		render jsonResponseOK as JSON
 	}
@@ -52,14 +58,12 @@ class GeneralController {
 			
 			//primer trimestre
 			def ptrimestre = PrimerTrimestre.findByEmbarazoInicial(einicial)
-			if(ptrimestre){
-				permisos.add('in02')
-			}
+			permisos.add('in02')
+			permisos.add('in03')
 			//segunfo tercer trimestre
 			def stercertrimestre = SegundoTercerTrimestre.findByEmbarazoInicial(einicial)
 			if(stercertrimestre){
 				permisos.remove('in02')
-				permisos.add('in03')
 			}
 			
 			

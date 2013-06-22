@@ -11,7 +11,34 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
     modal: true,
     iconCls: 'icon-add',
     //bodyPadding: 15,
+    listeners: {
+        afterlayout: function (win) {
+            var me = this
+            Ext.Ajax.request({
+                scope: this,
+                url: 'embarazosIniciales/get',
+                params: {
+                    id: me.idInforme
+                },
+                success: function(response){
+                    var text = response.responseText;
+                    var jsonin = Ext.JSON.decode(text)
 
+                    me.down('#infoEgesFurId').setValue(jsonin.data.infoEgesFur)
+                    me.down('#infoEgesEgId').setValue(jsonin.data.infoEgesEg)
+                    me.down('#idEmbarazoInicialId').setValue(me.idInforme)
+                },
+                failure: function(response){
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: 'Error Interno',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                   });
+                }
+            });        
+        }
+    },
     initComponent: function() {
         this.items = [
             {
@@ -19,7 +46,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                 padding: '5 5 5 5',
                 border: false,
                 style: 'background-color: #fff;',
-                
+                itemId: 'formId',
                 fieldDefaults: {
                     anchor: '100%',
                     labelAlign: 'left',
@@ -55,14 +82,21 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
+                                    xtype: 'hidden',
+                                    name : 'idEmbarazoInicial',
+                                    itemId: 'idEmbarazoInicialId'
+                                },{
                                     xtype: 'datefield',
-                                    name : 'fur',
+                                    format: 'd/m/Y',
+                                    name : 'infoEgesFur',
+                                    itemId : 'infoEgesFurId',
                                     fieldLabel: 'FUR',
                                     readOnly: true,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'eg',
+                                    name : 'infoEgesEg',
+                                    itemId : 'infoEgesEgId',
                                     fieldLabel: 'EG' ,
                                     flex: 1,
                                     allowDecimals: false,
@@ -75,13 +109,14 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'datefield',
-                                    name : 'fpp',
+                                    format: 'd/m/Y',
+                                    name : 'infoEgesFpp',
                                     fieldLabel: 'FPP',
                                     editable : false,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'ecoprecoz',
+                                    name : 'infoEgesEcoPrecoz',
                                     fieldLabel: 'ECO PRECOZ' ,
                                     minValue: 0,
                                     flex: 1 
@@ -91,7 +126,8 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'datefield',
-                                    name : 'fechaecoprecoz',
+                                    format: 'd/m/Y',
+                                    name : 'infoEgesFechaEcoPrecoz',
                                     fieldLabel: 'Fecha ECO PRECOZ',
                                     editable : false,
                                     flex: 1
@@ -105,7 +141,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'numerodefetos',
+                                    name : 'infoEgesNumeroFetos',
                                     fieldLabel: 'Numero de Fetos',
                                     minValue: 0,
                                     step: 1,
@@ -124,14 +160,14 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'combo',
-                                    name : 'gemelos',
+                                    name : 'infoEgesGemelos',
                                     fieldLabel: 'Gemelos' ,
                                     store: [[1,'---']],
                                     disabled: true,
                                     flex: 1
                                 },{
                                     xtype: 'combo',
-                                    name : 'gemelo',
+                                    name : 'infoEgesGemelo',
                                     fieldLabel: 'Gemelo' ,
                                     store: [[1,'---']],
                                     disabled: true,
@@ -142,12 +178,12 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'textfield',
-                                    name : 'corioncicidad',
+                                    name : 'infoEgesCorioncicidad',
                                     fieldLabel: 'Corioncicidad' ,
                                     flex: 1
                                 },{
                                     xtype: 'textfield',
-                                    name : 'amniocidad',
+                                    name : 'infoEgesAmniocidad',
                                     fieldLabel: 'Amniocidad' ,
                                     flex: 1 
                                 }]
@@ -156,7 +192,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'textfield',
-                                    name : 'posicion',
+                                    name : 'infoEgesPosicion',
                                     fieldLabel: 'Posición' ,
                                     flex: 1
                                 },{
@@ -180,7 +216,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'fcarciaca',
+                                    name : 'infoEgesFcardiaca',
                                     fieldLabel: 'F. Cardiaca' ,
                                     step: 1,
                                     minValue: 0,
@@ -201,12 +237,12 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'textfield',
-                                    name : 'troboflasto',
+                                    name : 'infoEgesTroboflasto',
                                     fieldLabel: 'Troboflasto',
                                     flex: 1
                                 },{
                                     xtype: 'textfield',
-                                    name : 'placenta',
+                                    name : 'infoEgesPlacenta',
                                     fieldLabel: 'Placenta',
                                     flex: 1 
                                 }]
@@ -215,13 +251,13 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'combo',
-                                    name : 'localizacion',
+                                    name : 'infoEgesLocalizacion',
                                     fieldLabel: 'Localización' ,
                                     store: [[1,'Anterior']],
                                     flex: 1
                                 },{
                                     xtype: 'combo',
-                                    name : 'insercion',
+                                    name : 'infoEgesInsercion',
                                     fieldLabel: 'Inserción' ,
                                     store: [[1,'NORMOINSERTA']],
                                     flex: 1 
@@ -231,13 +267,13 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'combo',
-                                    name : 'madurez',
+                                    name : 'infoEgesMadurez',
                                     fieldLabel: 'Madurez' ,
                                     store: [[1,'GRADO 0']],
                                     flex: 1
                                 },{
                                     xtype: 'textfield',
-                                    name : 'grado',
+                                    name : 'infoEgesGrado',
                                     fieldLabel: 'Grado' ,
                                     flex: 1 
                                 }]
@@ -246,12 +282,12 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'textfield',
-                                    name : 'interfase',
+                                    name : 'infoEgesInterfase',
                                     fieldLabel: 'Interfase',
                                     flex: 1
                                 },{
                                     xtype: 'textfield',
-                                    name : 'cordon',
+                                    name : 'infoEgesCordon',
                                     fieldLabel: 'Cordon',
                                     flex: 1 
                                 }]
@@ -260,13 +296,13 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'combo',
-                                    name : 'la',
+                                    name : 'infoEgesLa',
                                     fieldLabel: 'LA' ,
                                     store: [[1,'LEVEMENTE']],
                                     flex: 1
                                 },{
                                     xtype: 'textfield',
-                                    name : 'a',
+                                    name : 'infoEgesPresentaLa',
                                     fieldLabel: 'PRESENTA LA' ,
                                     flex: 1 
                                 }]
@@ -290,13 +326,13 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     labelWidth: 120
                                 },
                                 items:[{
-                                    name : 'movimientocoporales',
+                                    name : 'biofisPerfilMovCorporales',
                                     fieldLabel: 'Mov. Corporales',
                                     flex: 1
 
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'movimientorespiratorio',
+                                    name : 'biofisPerfilMovRespiratorio',
                                     fieldLabel: 'Mov. Respiratorio' ,
                                     step: 1,
                                     flex: 1
@@ -313,12 +349,12 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     labelWidth: 120
                                 },
                                 items:[{
-                                    name : 'tonofetal',
+                                    name : 'biofisPerfilTonoFetal',
                                     fieldLabel: 'Tono Fetal',
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'liquidoovular',
+                                    name : 'biofisPerfilLiquidoOvular',
                                     fieldLabel: 'Liquido Ovular' ,
                                     step: 1,
                                     flex: 1
@@ -333,7 +369,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'observaciones',
+                                name : 'diagnObservaciones',
                                 hideLabel: true
                             }]
                         },{
@@ -342,7 +378,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'diagnosticos',
+                                name : 'diagnDiagnosticos',
                                 hideLabel: true
                             }]
                         },
@@ -352,22 +388,22 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                             items: [
                             {
                                 xtype: 'textfield',
-                                name : 'ecografista',
+                                name : 'diagnEcografista',
                                 fieldLabel: 'Ecografista'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'becado',
+                                name : 'diagnBecado',
                                 fieldLabel: 'Becado'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'equipo',
+                                name : 'diagnEquipo',
                                 fieldLabel: 'Equipo'
                             },
                             {
                                 xtype: 'combo',
-                                name : 'derivada',
+                                name : 'diagnDerivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
                                          [2,'Dra.']],
@@ -375,7 +411,8 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                             },
                             {
                                 xtype: 'datefield',
-                                name : 'citacion',
+                                format: 'd/m/Y',
+                                name : 'diagnCitacion',
                                 fieldLabel: 'Citacion',
                                 editable : false
                             }]
@@ -385,7 +422,7 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'conclusion',
+                                name : 'diagnConclusiones',
                                 hideLabel: true
                             }]
                         }]

@@ -195,7 +195,27 @@ Ext.define('PForm.controller.admin.ControlGeneral', {
                 var edit = Ext.create('PForm.view.informe.segundoTercerTrimestre.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
             case 'perfil':
-                var edit = Ext.create('PForm.view.informe.perfil.Formulario').show();
+                var view = this.getAdmingrid()
+                var selectedRecords = view.getSelectionModel();
+                if(selectedRecords.getCount()<=0){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un registro',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                if(selectedRecords.getLastSelected().data.codInforme != 'in01'){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un informe Embarazo Inicial',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                var edit = Ext.create('PForm.view.informe.perfil.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
             case 'distocia':
                 var edit = Ext.create('PForm.view.informe.distocia.Formulario').show();
