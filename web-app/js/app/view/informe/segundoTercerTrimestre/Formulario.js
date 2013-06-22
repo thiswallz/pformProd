@@ -353,12 +353,14 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                 },
                                 items:[{
                                     name : 'biomGnrlDbp',
+                                    itemId : 'biomGnrlDbp',
                                     fieldLabel: 'DBP',
                                     flex: 2,
                                     labelWidth: 120
                                 },{
                                     xtype: 'numberfield',
                                     name : 'biomGnrlDbpOpS',
+                                    itemId : 'biomGnrlDbpOpS',
                                     fieldLabel: 'S' ,
                                     step: 1,
                                     minValue: 0,
@@ -368,6 +370,7 @@ Ext.define('PForm.view.informe.segundoTercerTrimestre.Formulario', {
                                 },{
                                     xtype: 'numberfield',
                                     name : 'biomGnrlDbpOpD',
+                                    itemId : 'biomGnrlDbpOpD',
                                     fieldLabel: 'D' ,
                                     step: 1,
                                     minValue: 0,

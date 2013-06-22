@@ -29,7 +29,6 @@ class SegundoTercerTrimestre {
 	String infoEgesLocalizacion
 	String infoEgesInsercion
 	String infoEgesMadurez
-	String infoEgesGrado
 	String infoEgesInterfase
 	String infoEgesCordon
 	String infoEgesLa
