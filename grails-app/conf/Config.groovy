@@ -92,4 +92,4 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-pform_imgPath = "C:/pform/pformProd/web-app/photos/"
+pform_imgPath = "/Development/workspace/grails/pform/pform/web-app/photos/"

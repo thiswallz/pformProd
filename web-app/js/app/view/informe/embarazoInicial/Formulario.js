@@ -106,7 +106,7 @@ Ext.define('PForm.view.informe.embarazoInicial.Formulario', {
                         },{
                             xtype: 'filefield',
                             emptyText: 'Select an image',
-                            fieldLabel: 'Photo',
+                            fieldLabel: 'Imagen 1',
                             name: 'imagen01',
                             allowBlank: true,
                             buttonText: '',
@@ -116,7 +116,7 @@ Ext.define('PForm.view.informe.embarazoInicial.Formulario', {
                         },{
                             xtype: 'filefield',
                             emptyText: 'Select an image',
-                            fieldLabel: 'Photo',
+                            fieldLabel: 'Imagen 2',
                             name: 'imagen02',
                             allowBlank: true,
                             buttonText: '',
@@ -126,7 +126,7 @@ Ext.define('PForm.view.informe.embarazoInicial.Formulario', {
                         },{
                             xtype: 'filefield',
                             emptyText: 'Select an image',
-                            fieldLabel: 'Photo',
+                            fieldLabel: 'Imagen 3',
                             name: 'imagen03',
                             allowBlank: true,
                             buttonText: '',
