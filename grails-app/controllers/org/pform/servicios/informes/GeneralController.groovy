@@ -19,25 +19,25 @@ class GeneralController {
 	def listadoInformes() {
 		def resp = [];
 		//embarazo inicial
-		def embarazoInicial = EmbarazoInicial.findByRutPac(session.pac_rut)
+		def embarazoInicial = EmbarazoInicial.findAllByRutPac(session.pac_rut)
 		embarazoInicial.each{
 			resp.add([id: it.id, codInforme: 'in01',informe: 'Embarazo Inicial', fecha: it.tableFechaIngreso, doctor: it.diagnInfogenEcografia])
 			
 		}
 		//primer trimestre
-		def ptrimestre = PrimerTrimestre.findByRutPac(session.pac_rut)
+		def ptrimestre = PrimerTrimestre.findAllByRutPac(session.pac_rut)
 		ptrimestre.each{
 			resp.add([id: it.id, codInforme: 'in02',informe: 'Primer Trimestre', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
 		//segunfo tercer trimestre
-		def stercertrimestre = SegundoTercerTrimestre.findByRutPac(session.pac_rut)
+		def stercertrimestre = SegundoTercerTrimestre.findAllByRutPac(session.pac_rut)
 		stercertrimestre.each{
 			resp.add([id: it.id, codInforme: 'in03',informe: 'Segundo Tercer Trimestre', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
 		//segunfo tercer trimestre
-		def perfiles = Perfil.findByRutPac(session.pac_rut)
+		def perfiles = Perfil.findAllByRutPac(session.pac_rut)
 		perfiles.each{
 			resp.add([id: it.id, codInforme: 'in04',informe: 'Informe Perfil', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			

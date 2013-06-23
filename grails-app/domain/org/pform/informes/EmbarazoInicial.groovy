@@ -9,7 +9,9 @@ class EmbarazoInicial {
 	//datos geenrales de la entidad
 	Date tableFechaIngreso =  new Date()
 	String rutPac
-	
+	String imgPath01
+	String imgPath02
+	String imgPath03
 	//Informacion
 	//****Edad Gestacional
 	Date infoEgesFur
@@ -34,6 +36,9 @@ class EmbarazoInicial {
 	Date diagnInfogenCitacion
 	
     static constraints = {
+		imgPath01 nullable: true
+		imgPath02 nullable: true
+		imgPath03 nullable: true
 		infoObservaciones maxSize: 1000
 		diagnDiagnosticos maxSize: 1000
     }

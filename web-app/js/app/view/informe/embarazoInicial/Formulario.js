@@ -11,7 +11,7 @@ Ext.define('PForm.view.informe.embarazoInicial.Formulario', {
     modal: true,
     iconCls: 'icon-add',
     //bodyPadding: 15,
-
+    y: 10,
     initComponent: function() {
         this.items = [
             {
@@ -103,6 +103,36 @@ Ext.define('PForm.view.informe.embarazoInicial.Formulario', {
                                 name : 'infoObservaciones',
                                 hideLabel: true
                             }]
+                        },{
+                            xtype: 'filefield',
+                            emptyText: 'Select an image',
+                            fieldLabel: 'Photo',
+                            name: 'imagen01',
+                            allowBlank: true,
+                            buttonText: '',
+                            buttonConfig: {
+                                iconCls: 'icon-photo'
+                            }
+                        },{
+                            xtype: 'filefield',
+                            emptyText: 'Select an image',
+                            fieldLabel: 'Photo',
+                            name: 'imagen02',
+                            allowBlank: true,
+                            buttonText: '',
+                            buttonConfig: {
+                                iconCls: 'icon-photo'
+                            }
+                        },{
+                            xtype: 'filefield',
+                            emptyText: 'Select an image',
+                            fieldLabel: 'Photo',
+                            name: 'imagen03',
+                            allowBlank: true,
+                            buttonText: '',
+                            buttonConfig: {
+                                iconCls: 'icon-photo'
+                            }
                         }]
                     },{
                         title: 'Diagnosticos',
