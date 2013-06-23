@@ -11,7 +11,34 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
     modal: true,
     iconCls: 'icon-add',
     //bodyPadding: 15,
+    listeners: {
+        afterlayout: function (win) {
+            var me = this
+            Ext.Ajax.request({
+                scope: this,
+                url: 'embarazosIniciales/get',
+                params: {
+                    id: me.idInforme
+                },
+                success: function(response){
+                    var text = response.responseText;
+                    var jsonin = Ext.JSON.decode(text)
 
+                    me.down('#infoEgesFurId').setValue(jsonin.data.infoEgesFur)
+                    me.down('#infoEgesEgId').setValue(jsonin.data.infoEgesEg)
+                    me.down('#idEmbarazoInicialId').setValue(me.idInforme)
+                },
+                failure: function(response){
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: 'Error Interno',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                   });
+                }
+            });        
+        }
+    },
     initComponent: function() {
         this.items = [
             {
@@ -19,7 +46,7 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                 padding: '5 5 5 5',
                 border: false,
                 style: 'background-color: #fff;',
-                
+                itemId: 'formId',
                 fieldDefaults: {
                     anchor: '100%',
                     labelAlign: 'left',
@@ -55,17 +82,26 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
+                                    xtype: 'hidden',
+                                    name : 'idEmbarazoInicial',
+                                    itemId: 'idEmbarazoInicialId'
+                                },{
                                     xtype: 'datefield',
-                                    name : 'fur',
+                                    name : 'infoEgesFur',
                                     fieldLabel: 'FUR',
+                                    format: 'd/m/Y',
+                                    itemId:'infoEgesFurId',
+                                    readOnly: true,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'eg',
+                                    name : 'infoEgesEg',
                                     fieldLabel: 'EG' ,
                                     flex: 1,
                                     allowDecimals: false,
+                                    itemId: 'infoEgesEgId',
                                     minValue: 0,
+                                    readOnly: true,
                                     step: 1
                                 }]
                             },{
@@ -73,12 +109,14 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'datefield',
-                                    name : 'fpp',
+                                    name : 'infoEgesFpp',
                                     fieldLabel: 'FPP',
-                                    flex: 1
+                                    flex: 1,
+                                    format: 'd/m/Y',
+                                    editable: false
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'ecoprecoz',
+                                    name : 'infoEgesEcoPrecoz',
                                     fieldLabel: 'ECO PRECOZ' ,
                                     minValue: 0,
                                     flex: 1 
@@ -88,9 +126,11 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'datefield',
-                                    name : 'fechaecoprecoz',
+                                    name : 'infoEgesFechaEcoPrecoz',
                                     fieldLabel: 'Fecha ECO PRECOZ',
-                                    flex: 1
+                                    flex: 1,
+                                    format: 'd/m/Y',
+                                    editable: false
                                 }]
                             }]
                         },{
@@ -110,10 +150,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     flex: 1
                                 },
                                 items:[{
-                                    name : 'ipau',
+                                    name : 'infoAumbIP',
                                     fieldLabel: 'IP'
                                 },{
-                                    name : 'irau',
+                                    name : 'infoAumbIR',
                                     fieldLabel: 'IR'
                                 }]
                             },{
@@ -127,10 +167,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'sdau',
+                                    name : 'infoAumbSD',
                                     fieldLabel: 'S/D'
                                 },{
-                                    name : 'flujodiastolico',
+                                    name : 'infoAumbFlujoDiastolico',
                                     fieldLabel: 'Flujo Diastolico'
                                 }]
                             },{
@@ -144,10 +184,12 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'percentilau',
-                                    fieldLabel: 'Percentil'
+                                    name : 'infoAumbPercentil',
+                                    fieldLabel: 'Percentil',
+                                    readOnly: true,
+                                    value: 0
                                 },{
-                                    name : 'conclusionau',
+                                    name : 'infoAumbConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -168,10 +210,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     flex: 1
                                 },
                                 items:[{
-                                    name : 'ipacp',
+                                    name : 'infoAcermedIP',
                                     fieldLabel: 'IP'
                                 },{
-                                    name : 'iracp',
+                                    name : 'infoAcermedIR',
                                     fieldLabel: 'IR'
                                 }]
                             },{
@@ -185,10 +227,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'sdacp',
+                                    name : 'infoAcermedSD',
                                     fieldLabel: 'S/D'
                                 },{
-                                    name : 'flujodiastolicoacp',
+                                    name : 'infoAcermedFlujoDiastolico',
                                     fieldLabel: 'Flujo Diastolico'
                                 }]
                             },{
@@ -202,10 +244,12 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'percentilacp',
-                                    fieldLabel: 'Percentil'
+                                    name : 'infoAcermedPercentil',
+                                    fieldLabel: 'Percentil',
+                                    readOnly: true,
+                                    value: 0
                                 },{
-                                    name : 'conclusionacp',
+                                    name : 'infoAcermedConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -226,10 +270,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     flex: 1
                                 },
                                 items:[{
-                                    name : 'ipaud',
+                                    name : 'infoAutederIP',
                                     fieldLabel: 'IP'
                                 },{
-                                    name : 'iraud',
+                                    name : 'infoAutederIR',
                                     fieldLabel: 'IR'
                                 }]
                             },{
@@ -243,10 +287,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'sdaud',
+                                    name : 'infoAutederSD',
                                     fieldLabel: 'S/D'
                                 },{
-                                    name : 'flujodiastolicoaud',
+                                    name : 'infoAutederFlujoDiastolico',
                                     fieldLabel: 'Flujo Diastolico'
                                 }]
                             },{
@@ -260,10 +304,12 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'percentilaud',
-                                    fieldLabel: 'Percentil'
+                                    name : 'infoAutederPercentil',
+                                    fieldLabel: 'Percentil',
+                                    readOnly: true,
+                                    value: 0
                                 },{
-                                    name : 'conclusionaud',
+                                    name : 'infoAutederConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -287,10 +333,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     flex: 1
                                 },
                                 items:[{
-                                    name : 'ipaui',
+                                    name : 'infoAuteizqIP',
                                     fieldLabel: 'IP'
                                 },{
-                                    name : 'iraui',
+                                    name : 'infoAuteizqIR',
                                     fieldLabel: 'IR'
                                 }]
                             },{
@@ -304,10 +350,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'sdaui',
+                                    name : 'infoAuteizqSD',
                                     fieldLabel: 'S/D'
                                 },{
-                                    name : 'flujodiastolicoaui',
+                                    name : 'infoAuteizqFlujoDiastolico',
                                     fieldLabel: 'Flujo Diastolico'
                                 }]
                             },{
@@ -321,10 +367,12 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                 },
                                 items:[{
                                     xtype: 'numberfield',
-                                    name : 'percentilaui',
-                                    fieldLabel: 'Percentil'
+                                    name : 'infoAuteizqPercentil',
+                                    fieldLabel: 'Percentil',
+                                    readOnly: true,
+                                    value: 0
                                 },{
-                                    name : 'conclusionaui',
+                                    name : 'infoAuteizqConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -347,10 +395,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'velmaxdv',
+                                    name : 'biofDvenVelSistolicaMax',
                                     fieldLabel: 'Vel. Sistolica Max.'
                                 },{
-                                    name : 'velmindv',
+                                    name : 'biofDvenVelDiasloticaMin',
                                     fieldLabel: 'Vel. Diastolica Min.'
                                 }]
                             },{
@@ -364,11 +412,11 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'sipdv',
+                                    name : 'biofDvenIndiceSIP',
                                     fieldLabel: 'Indice S/ IP'
                                 },{
                                     xtype:'textfield',
-                                    name : 'conclusiondv',
+                                    name : 'biofDvenConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -387,10 +435,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'velmaxacm',
+                                    name : 'biofAcermedVelSistolicaMax',
                                     fieldLabel: 'Vel. Sistolica Max.'
                                 },{
-                                    name : 'velminacm',
+                                    name : 'biofAcermedVelDiasloticaMin',
                                     fieldLabel: 'Vel. Diastolica Min.'
                                 }]
                             },{
@@ -404,11 +452,11 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'sipacm',
+                                    name : 'biofAcermedIndiceSIP',
                                     fieldLabel: 'Indice S/ IP'
                                 },{
                                     xtype:'textfield',
-                                    name : 'conclusionacm',
+                                    name : 'biofAcermedConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -427,10 +475,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'ipppvci',
+                                    name : 'biofVcovinfIPPosi',
                                     fieldLabel: 'IP P. Posi.'
                                 },{
-                                    name : 'ippnvci',
+                                    name : 'biofVcovinfIPPNega',
                                     fieldLabel: 'IP P. Nega.'
                                 }]
                             },{
@@ -444,11 +492,11 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'flujovci',
+                                    name : 'biofVcovinfFlujoReverso',
                                     fieldLabel: '% Flujo Reverso'
                                 },{
                                     xtype:'textfield',
-                                    name : 'conclusionvci',
+                                    name : 'biofVcovinfConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -467,10 +515,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'ipppvu',
+                                    name : 'biofVumbIPPosi',
                                     fieldLabel: 'IP P. Posi.'
                                 },{
-                                    name : 'ippnvu',
+                                    name : 'biofVumbIPPNega',
                                     fieldLabel: 'IP P. Nega.'
                                 }]
                             },{
@@ -484,28 +532,28 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'flujovu',
+                                    name : 'biofVumbFlujoReverso',
                                     fieldLabel: '% Flujo Reverso'
                                 },{
                                     xtype:'textfield',
-                                    name : 'conclusionvu',
+                                    name : 'biofVumbConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
                         },{
                             xtype: 'fieldset',
-                            title: 'Fujo Mitral',
+                            title: 'Flujo Mitral',
                             items:[{
                                 xtype: 'textfield',
-                                name:'conclusionfm',
+                                name:'biofFmitConslusion',
                                 fieldLabel:'Conclusion'
                             }]
                         },{
                             xtype: 'fieldset',
-                            title: 'Fujo Tricuspideo',
+                            title: 'Flujo Tricuspideo',
                             items:[{
                                 xtype: 'textfield',
-                                name:'conclusionft',
+                                name:'biofFtriConslusion',
                                 fieldLabel:'Conclusion'
                             }]
                         },{
@@ -522,10 +570,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'movcorporales',
+                                    name : 'biofPbioMovCorporales',
                                     fieldLabel: 'Mov. Corporales'
                                 },{
-                                    name : 'movrespiratorios',
+                                    name : 'biofPbioMovRespiratorios',
                                     fieldLabel: 'Mov. Respiratorios' 
                                 }]
                             },{
@@ -539,10 +587,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'tonofetal',
+                                    name : 'biofPbioTonoFetal',
                                     fieldLabel: 'Tono Fetal'
                                 },{
-                                    name : 'liquidoovular',
+                                    name : 'biofPbioLiquidoOvular',
                                     fieldLabel: 'Liquido Ovular' 
                                 }]
                             },,{
@@ -553,10 +601,10 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                                     labelWidth: 80
                                 },
                                 items:[{
-                                    name : 'placenta',
+                                    name : 'biofPbioPlacenta',
                                     fieldLabel: 'Placenta'
                                 },{
-                                    name : 'localizacion',
+                                    name : 'biofPbioLocalizacion',
                                     fieldLabel: 'Localizacion'
                                 }]
                             }]
@@ -569,7 +617,7 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'observaciones',
+                                name : 'diagnObservaciones',
                                 hideLabel: true
                             }]
                         },{
@@ -578,7 +626,7 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'diagnosticos',
+                                name : 'diagnDiagnosticos',
                                 hideLabel: true
                             }]
                         },
@@ -588,22 +636,22 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                             items: [
                             {
                                 xtype: 'textfield',
-                                name : 'ecografista',
+                                name : 'diagnEcografista',
                                 fieldLabel: 'Ecografista'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'becado',
+                                name : 'diagnBecado',
                                 fieldLabel: 'Becado'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'equipo',
+                                name : 'diagnEquipo',
                                 fieldLabel: 'Equipo'
                             },
                             {
                                 xtype: 'combo',
-                                name : 'derivada',
+                                name : 'diagnDerivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
                                          [2,'Dra.']],
@@ -611,17 +659,18 @@ Ext.define('PForm.view.informe.ecoDoppler.Formulario', {
                             },
                             {
                                 xtype: 'datefield',
-                                name : 'citacion',
+                                name : 'diagnCitacion',
                                 fieldLabel: 'Citacion',
+                                format: 'd/m/Y',
                                 editable : false
                             }]
                         },{
                             xtype: 'fieldset',
-                            title: 'Conclusiones',
+                            title: 'diagnConclusiones',
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'conclusion',
+                                name : 'diagnConclusiones',
                                 hideLabel: true
                             }]
                         }]

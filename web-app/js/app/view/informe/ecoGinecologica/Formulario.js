@@ -11,7 +11,33 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
     modal: true,
     iconCls: 'icon-add',
     //bodyPadding: 15,
+    listeners: {
+        afterlayout: function (win) {
+            var me = this
+            Ext.Ajax.request({
+                scope: this,
+                url: 'embarazosIniciales/get',
+                params: {
+                    id: me.idInforme
+                },
+                success: function(response){
+                    var text = response.responseText;
+                    var jsonin = Ext.JSON.decode(text)
 
+                    me.down('#infoEgesFurId').setValue(jsonin.data.infoEgesFur)
+                    me.down('#idEmbarazoInicialId').setValue(me.idInforme)
+                },
+                failure: function(response){
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: 'Error Interno',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                   });
+                }
+            });        
+        }
+    },
     initComponent: function() {
         this.items = [
             {
@@ -19,7 +45,7 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                 padding: '5 5 5 5',
                 border: false,
                 style: 'background-color: #fff;',
-                
+                itemId: 'formId',
                 fieldDefaults: {
                     anchor: '100%',
                     labelAlign: 'left',
@@ -55,10 +81,17 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
+                                    xtype: 'hidden',
+                                    name : 'idEmbarazoInicial',
+                                    itemId: 'idEmbarazoInicialId'
+                                },{
                                     xtype: 'datefield',
-                                    name : 'fur',
+                                    name : 'infoEgesFur',
+                                    itemId: 'infoEgesFurId',
+                                    format: 'd/m/Y',
                                     fieldLabel: 'FUR',
-                                    flex: 1
+                                    flex: 1,
+                                    readOnly: true
                                 }]
                             }]
                         },{
@@ -77,10 +110,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'utero',
+                                    name : 'infoUterUtero',
                                     fieldLabel: 'Utero'
                                 },{
-                                    name : 'contorno',
+                                    name : 'infoUterContorno',
                                     fieldLabel: 'Contorno' 
                                 }]
                             },{
@@ -92,11 +125,11 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'parequima',
+                                    name : 'infoUterParequima',
                                     fieldLabel: 'Parequima'
                                 },{
                                     xtype:'numberfield',
-                                    name : 'longitud',
+                                    name : 'infoUterLongitud',
                                     fieldLabel: 'Longitud' 
                                 }]
                             },{
@@ -108,10 +141,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'ap',
+                                    name : 'infoUterAP',
                                     fieldLabel: 'AP'
                                 },{
-                                    name : 'tranverso',
+                                    name : 'infoUterTranverso',
                                     fieldLabel: 'Traverso' 
                                 }]
                             },{
@@ -123,10 +156,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'cervix',
+                                    name : 'infoUterCervix',
                                     fieldLabel: 'Cervix'
                                 },{
-                                    name : 'otros',
+                                    name : 'infoUterOtros',
                                     fieldLabel: 'Otros' 
                                 }]
                             },{
@@ -138,7 +171,7 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'conclusion',
+                                    name : 'infoUterConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -158,10 +191,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'endometrio',
+                                    name : 'infoEndoEndometrio',
                                     fieldLabel: 'Endometrio'
                                 },{
-                                    name : 'tipo',
+                                    name : 'infoEndoTipo',
                                     fieldLabel: 'Tipo' 
                                 }]
                             },{
@@ -174,10 +207,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                 },
                                 items:[{
                                     xtype:'numberfield',
-                                    name : 'mide',
+                                    name : 'infoEndoMide',
                                     fieldLabel: 'Mide'
                                 },{
-                                    name : 'otros',
+                                    name : 'infoEndoOtros',
                                     fieldLabel: 'Otros' 
                                 }]
                             },{
@@ -189,7 +222,7 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'conclusion',
+                                    name : 'infoEndoConclusion',
                                     fieldLabel: 'Conclusion'
                                 }]
                             }]
@@ -209,11 +242,11 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'ovarioder',
+                                    name : 'infoOderOvario',
                                     fieldLabel: 'Ovario'
                                 },{
                                     xtype:'numberfield',
-                                    name : 'mideder',
+                                    name : 'infoOderMide',
                                     fieldLabel: 'Mide' 
                                 }]
                             },{
@@ -225,10 +258,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'otrosder',
+                                    name : 'infoOderOtros',
                                     fieldLabel: 'Otros'
                                 },{
-                                    name : 'conclusionder',
+                                    name : 'infoOderConclusion',
                                     fieldLabel: 'Conclusion' 
                                 }]
                             }]
@@ -248,11 +281,11 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'ovarioizq',
+                                    name : 'infoOizqOvario',
                                     fieldLabel: 'Ovario'
                                 },{
                                     xtype:'numberfield',
-                                    name : 'mideizq',
+                                    name : 'infoOizqMide',
                                     fieldLabel: 'Mide' 
                                 }]
                             },{
@@ -264,10 +297,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'otrosizq',
+                                    name : 'infoOizqOtros',
                                     fieldLabel: 'Otros'
                                 },{
-                                    name : 'conclusionizq',
+                                    name : 'infoOizqConclusion',
                                     fieldLabel: 'Conclusion' 
                                 }]
                             }]
@@ -287,10 +320,10 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'otrosfondo',
+                                    name : 'infoFsacOtros',
                                     fieldLabel: 'Otros'
                                 },{
-                                    name : 'conclusionfondo',
+                                    name : 'infoFsacConslusion',
                                     fieldLabel: 'Conclusion' 
                                 }]
                             }]
@@ -303,7 +336,7 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'observaciones',
+                                name : 'diagnObservaciones',
                                 hideLabel: true
                             }]
                         },{
@@ -312,7 +345,7 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'diagnosticos',
+                                name : 'diagnDiagnosticos',
                                 hideLabel: true
                             }]
                         },
@@ -322,22 +355,22 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                             items: [
                             {
                                 xtype: 'textfield',
-                                name : 'ecografista',
+                                name : 'diagnEcografista',
                                 fieldLabel: 'Ecografista'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'becado',
+                                name : 'diagnBecado',
                                 fieldLabel: 'Becado'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'equipo',
+                                name : 'diagnEquipo',
                                 fieldLabel: 'Equipo'
                             },
                             {
                                 xtype: 'combo',
-                                name : 'derivada',
+                                name : 'diagnDerivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
                                          [2,'Dra.']],
@@ -345,8 +378,9 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                             },
                             {
                                 xtype: 'datefield',
-                                name : 'citacion',
+                                name : 'diagnCitacion',
                                 fieldLabel: 'Citacion',
+                                format: 'd/m/Y',
                                 editable : false
                             }]
                         },{
@@ -355,7 +389,7 @@ Ext.define('PForm.view.informe.ecoGinecologica.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'conclusion',
+                                name : 'diagnConclusiones',
                                 hideLabel: true
                             }]
                         }]

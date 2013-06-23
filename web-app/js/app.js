@@ -9,6 +9,11 @@ Ext.application({
         'informe.PrimerosTrimestres',
         'informe.SegundoTercerTrimestres',
         'informe.Perfiles',
+        'informe.Distocias',
+        'informe.EcoCardiogramas',
+        'informe.EcoCervicales',
+        'informe.EcoGinecologicas',
+        'informe.EcoDopplers',
         'admin.ControlGeneral'
     ],
     launch: function(){

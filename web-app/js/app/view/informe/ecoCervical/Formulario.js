@@ -11,7 +11,34 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
     modal: true,
     iconCls: 'icon-add',
     //bodyPadding: 15,
+    listeners: {
+        afterlayout: function (win) {
+            var me = this
+            Ext.Ajax.request({
+                scope: this,
+                url: 'embarazosIniciales/get',
+                params: {
+                    id: me.idInforme
+                },
+                success: function(response){
+                    var text = response.responseText;
+                    var jsonin = Ext.JSON.decode(text)
 
+                    me.down('#infoEgesFurId').setValue(jsonin.data.infoEgesFur)
+                    me.down('#infoEgesEgId').setValue(jsonin.data.infoEgesEg)
+                    me.down('#idEmbarazoInicialId').setValue(me.idInforme)
+                },
+                failure: function(response){
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: 'Error Interno',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.ERROR
+                   });
+                }
+            });        
+        }
+    },
     initComponent: function() {
         this.items = [
             {
@@ -19,7 +46,7 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                 padding: '5 5 5 5',
                 border: false,
                 style: 'background-color: #fff;',
-                
+                itemId: 'formId',
                 fieldDefaults: {
                     anchor: '100%',
                     labelAlign: 'left',
@@ -55,30 +82,41 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
+                                    xtype: 'hidden',
+                                    name : 'idEmbarazoInicial',
+                                    itemId: 'idEmbarazoInicialId'
+                                },{
                                     xtype: 'datefield',
-                                    name : 'fur',
+                                    name : 'infoEgesFur',
                                     fieldLabel: 'FUR',
-                                    flex: 1
+                                    format: 'd/m/Y',
+                                    itemId: 'infoEgesFurId',
+                                    flex: 1,
+                                    readOnly: true
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'eg',
+                                    name : 'infoEgesEg',
                                     fieldLabel: 'EG' ,
                                     flex: 1,
                                     allowDecimals: false,
+                                    itemId: 'infoEgesEgId',
                                     minValue: 0,
-                                    step: 1
+                                    step: 1,
+                                    readOnly: true
                                 }]
                             },{
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'datefield',
-                                    name : 'fpp',
+                                    name : 'infoEgesFpp',
                                     fieldLabel: 'FPP',
-                                    flex: 1
+                                    format: 'd/m/Y',
+                                    flex: 1,
+                                    editable: false
                                 },{
                                     xtype: 'numberfield',
-                                    name : 'ecoprecoz',
+                                    name : 'infoEgesEcoPrecoz',
                                     fieldLabel: 'ECO PRECOZ' ,
                                     minValue: 0,
                                     flex: 1 
@@ -88,9 +126,11 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                 layout: 'hbox',
                                 items:[{
                                     xtype: 'datefield',
-                                    name : 'fechaecoprecoz',
+                                    name : 'infoEgesFechaEcoPrecoz',
                                     fieldLabel: 'Fecha ECO PRECOZ',
-                                    flex: 1
+                                    format: 'd/m/Y',
+                                    flex: 1,
+                                    editable: false
                                 }]
                             }]
                         },{
@@ -109,10 +149,10 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'canalmaximo',
+                                    name : 'infoEbasCanalMaximo',
                                     fieldLabel: 'Canal Maximo'
                                 },{
-                                    name : 'canalmediano',
+                                    name : 'infoEbasCanalMediano',
                                     fieldLabel: 'Canal Mediano' 
                                 }]
                             },{
@@ -124,10 +164,10 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'canalminimo',
+                                    name : 'infoEbasCanalMinimo',
                                     fieldLabel: 'Canal Minimo'
                                 },{
-                                    name : 'funnel',
+                                    name : 'infoEbasFunnel',
                                     fieldLabel: 'Funnel' 
                                 }]
                             },{
@@ -139,10 +179,10 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'anchofunnel',
+                                    name : 'infoEbasAnchoFunnel',
                                     fieldLabel: 'Ancho Funnel'
                                 },{
-                                    name : 'largofunnel',
+                                    name : 'infoEbasLargoFunnel',
                                     fieldLabel: 'Largo Funnel' 
                                 }]
                             }]
@@ -162,10 +202,10 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'canal',
+                                    name : 'infoEstrCanal',
                                     fieldLabel: 'Canal'
                                 },{
-                                    name : 'funnelstress',
+                                    name : 'infoEstrFunnel',
                                     fieldLabel: 'Funnel' 
                                 }]
                             },{
@@ -177,10 +217,10 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                                     flex:1
                                 },
                                 items:[{
-                                    name : 'anchofunnelstress',
+                                    name : 'infoEstrAnchoFunnel',
                                     fieldLabel: 'Ancho Funnel'
                                 },{
-                                    name : 'largofunnelstress',
+                                    name : 'infoEstrLargoFunnel',
                                     fieldLabel: 'Largo Funnel' 
                                 }]
                             }]
@@ -193,7 +233,7 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'observaciones',
+                                name : 'diagnObservaciones',
                                 hideLabel: true
                             }]
                         },{
@@ -202,7 +242,7 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'diagnosticos',
+                                name : 'diagnDiagnosticos',
                                 hideLabel: true
                             }]
                         },
@@ -212,22 +252,22 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                             items: [
                             {
                                 xtype: 'textfield',
-                                name : 'ecografista',
+                                name : 'diagnEcografista',
                                 fieldLabel: 'Ecografista'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'becado',
+                                name : 'diagnBecado',
                                 fieldLabel: 'Becado'
                             },
                             {
                                 xtype: 'textfield',
-                                name : 'equipo',
+                                name : 'diagnEquipo',
                                 fieldLabel: 'Equipo'
                             },
                             {
                                 xtype: 'combo',
-                                name : 'derivada',
+                                name : 'diagnDerivada',
                                 fieldLabel: 'Derivada',
                                 store: [[1,'Dr.'],
                                          [2,'Dra.']],
@@ -235,8 +275,9 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                             },
                             {
                                 xtype: 'datefield',
-                                name : 'citacion',
+                                name : 'diagnCitacion',
                                 fieldLabel: 'Citacion',
+                                format: 'd/m/Y',
                                 editable : false
                             }]
                         },{
@@ -245,7 +286,7 @@ Ext.define('PForm.view.informe.ecoCervical.Formulario', {
                             items: [
                             {
                                 xtype: 'textarea',
-                                name : 'conclusion',
+                                name : 'diagnConclusiones',
                                 hideLabel: true
                             }]
                         }]

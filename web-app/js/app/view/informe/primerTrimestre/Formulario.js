@@ -112,7 +112,8 @@ Ext.define('PForm.view.informe.primerTrimestre.Formulario', {
                                     format: 'd/m/Y',
                                     name : 'infoEgesFpp',
                                     fieldLabel: 'FPP',
-                                    flex: 1
+                                    flex: 1,
+                                    editable:false
                                 },{
                                     xtype: 'numberfield',
                                     name : 'infoEgesEcoPrecoz',
@@ -128,7 +129,8 @@ Ext.define('PForm.view.informe.primerTrimestre.Formulario', {
                                     format: 'd/m/Y',
                                     name : 'infoEgesFechaEcoPrecoz',
                                     fieldLabel: 'Fecha ECO PRECOZ',
-                                    flex: 1
+                                    flex: 1,
+                                    editable:false
                                 }]
                             },{
                                 xtype:'container',

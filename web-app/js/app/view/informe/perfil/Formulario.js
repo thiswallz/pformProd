@@ -87,21 +87,21 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     itemId: 'idEmbarazoInicialId'
                                 },{
                                     xtype: 'datefield',
-                                    format: 'd/m/Y',
+                                    readOnly: true,
                                     name : 'infoEgesFur',
+                                    format: 'd/m/Y',
                                     itemId : 'infoEgesFurId',
                                     fieldLabel: 'FUR',
-                                    readOnly: true,
                                     flex: 1
                                 },{
                                     xtype: 'numberfield',
+                                    readOnly: true,
                                     name : 'infoEgesEg',
                                     itemId : 'infoEgesEgId',
                                     fieldLabel: 'EG' ,
                                     flex: 1,
                                     allowDecimals: false,
                                     minValue: 0,
-                                    readOnly: true,
                                     step: 1
                                 }]
                             },{
@@ -112,8 +112,8 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     format: 'd/m/Y',
                                     name : 'infoEgesFpp',
                                     fieldLabel: 'FPP',
-                                    editable : false,
-                                    flex: 1
+                                    flex: 1,
+                                    editable:false
                                 },{
                                     xtype: 'numberfield',
                                     name : 'infoEgesEcoPrecoz',
@@ -129,8 +129,8 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     format: 'd/m/Y',
                                     name : 'infoEgesFechaEcoPrecoz',
                                     fieldLabel: 'Fecha ECO PRECOZ',
-                                    editable : false,
-                                    flex: 1
+                                    flex: 1,
+                                    editable:false
                                 }]
                             },{
                                 xtype:'container',
@@ -241,9 +241,14 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     fieldLabel: 'Troboflasto',
                                     flex: 1
                                 },{
-                                    xtype: 'textfield',
+                                    xtype: 'combo',
                                     name : 'infoEgesPlacenta',
                                     fieldLabel: 'Placenta',
+                                    store: [[1,'BAJA'],
+                                    [2,'PREVIA'],
+                                    [3,'PREVIA OCLUSIVA'],
+                                    [4,'NORMOINSERTA']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -253,13 +258,17 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     xtype: 'combo',
                                     name : 'infoEgesLocalizacion',
                                     fieldLabel: 'Localización' ,
-                                    store: [[1,'Anterior']],
+                                    store: [[1,'ANTERIOR'],
+                                    [2,'POSTERIOR'],
+                                    [3,'ANTERO POSTERIOR']],
+                                    editable: false,
                                     flex: 1
                                 },{
                                     xtype: 'combo',
                                     name : 'infoEgesInsercion',
                                     fieldLabel: 'Inserción' ,
                                     store: [[1,'NORMOINSERTA']],
+                                    editable: false,
                                     flex: 1 
                                 }]
                             },{
@@ -269,41 +278,57 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     xtype: 'combo',
                                     name : 'infoEgesMadurez',
                                     fieldLabel: 'Madurez' ,
-                                    store: [[1,'GRADO 0']],
+                                    store: [[1,'NINGUNA'],
+                                    [2,'GRADO 0'],
+                                    [3,'GRADO 1'],
+                                    [4,'GRADO 2']],
+                                    editable: false,
                                     flex: 1
                                 },{
-                                    xtype: 'textfield',
-                                    name : 'infoEgesGrado',
-                                    fieldLabel: 'Grado' ,
-                                    flex: 1 
-                                }]
-                            },{
-                                xtype:'container',
-                                layout: 'hbox',
-                                items:[{
                                     xtype: 'textfield',
                                     name : 'infoEgesInterfase',
                                     fieldLabel: 'Interfase',
                                     flex: 1
-                                },{
+                                }/*,{
+                                    xtype: 'textfield',
+                                    name : 'infoEgesGrado',
+                                    fieldLabel: 'Grado' ,
+                                    flex: 1 
+                                }*/]
+                            },{
+                                xtype:'container',
+                                layout: 'hbox',
+                                items:[{
                                     xtype: 'textfield',
                                     name : 'infoEgesCordon',
                                     fieldLabel: 'Cordon',
                                     flex: 1 
+                                },{
+                                    xtype: 'combo',
+                                    name : 'infoEgesLa',
+                                    fieldLabel: 'LA' ,
+                                    store: [[1,'LEVEMENTE'],
+                                    [2,'DISMINUIDO'],
+                                    [3,'AUMNETADO'],
+                                    [4,'OLIGOAMNIOS'],
+                                    [5,'POLIHIDROAMNIOS']],
+                                    editable: false,
+                                    flex: 1
                                 }]
                             },{
                                 xtype:'container',
                                 layout: 'hbox',
                                 items:[{
-                                    xtype: 'combo',
-                                    name : 'infoEgesLa',
-                                    fieldLabel: 'LA' ,
-                                    store: [[1,'LEVEMENTE']],
-                                    flex: 1
-                                },{
                                     xtype: 'textfield',
                                     name : 'infoEgesPresentaLa',
-                                    fieldLabel: 'PRESENTA LA' ,
+                                    fieldLabel: 'Indice LA' ,
+                                    flex: 1 
+                                },{
+                                    xtype: 'textfield',
+                                    name : 'infoEgesPresentaLaTabla',
+                                    fieldLabel: 'Indice por Tabla' ,
+                                    readOnly: true,
+                                    value : 0,
                                     flex: 1 
                                 }]
                             }]
@@ -323,7 +348,8 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     allowDecimals: true,
                                     minValue: 0,
                                     step: 0.1,
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    maxValue: 2
                                 },
                                 items:[{
                                     name : 'biofisPerfilMovCorporales',
@@ -346,7 +372,8 @@ Ext.define('PForm.view.informe.perfil.Formulario', {
                                     allowDecimals: true,
                                     minValue: 0,
                                     step: 0.1,
-                                    labelWidth: 120
+                                    labelWidth: 120,
+                                    maxValue: 2
                                 },
                                 items:[{
                                     name : 'biofisPerfilTonoFetal',

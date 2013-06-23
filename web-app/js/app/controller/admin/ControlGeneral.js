@@ -218,19 +218,119 @@ Ext.define('PForm.controller.admin.ControlGeneral', {
                 var edit = Ext.create('PForm.view.informe.perfil.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
             case 'distocia':
-                var edit = Ext.create('PForm.view.informe.distocia.Formulario').show();
+                var view = this.getAdmingrid()
+                var selectedRecords = view.getSelectionModel();
+                if(selectedRecords.getCount()<=0){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un registro',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                if(selectedRecords.getLastSelected().data.codInforme != 'in01'){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un informe Embarazo Inicial',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                var edit = Ext.create('PForm.view.informe.distocia.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
             case 'ecoCardio':
-                var edit = Ext.create('PForm.view.informe.ecoCardiograma.Formulario').show();
+                var view = this.getAdmingrid()
+                var selectedRecords = view.getSelectionModel();
+                if(selectedRecords.getCount()<=0){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un registro',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                if(selectedRecords.getLastSelected().data.codInforme != 'in01'){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un informe Embarazo Inicial',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                var edit = Ext.create('PForm.view.informe.ecoCardiograma.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
             case 'ecoCervi':
-                var edit = Ext.create('PForm.view.informe.ecoCervical.Formulario').show();
+                var view = this.getAdmingrid()
+                var selectedRecords = view.getSelectionModel();
+                if(selectedRecords.getCount()<=0){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un registro',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                if(selectedRecords.getLastSelected().data.codInforme != 'in01'){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un informe Embarazo Inicial',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                var edit = Ext.create('PForm.view.informe.ecoCervical.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
             case 'ecoDopp':
-                var edit = Ext.create('PForm.view.informe.ecoDoppler.Formulario').show();
+                var view = this.getAdmingrid()
+                var selectedRecords = view.getSelectionModel();
+                if(selectedRecords.getCount()<=0){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un registro',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                if(selectedRecords.getLastSelected().data.codInforme != 'in01'){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un informe Embarazo Inicial',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                var edit = Ext.create('PForm.view.informe.ecoDoppler.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
             case 'ecoGine':
-                var edit = Ext.create('PForm.view.informe.ecoGinecologica.Formulario').show();
+                var view = this.getAdmingrid()
+                var selectedRecords = view.getSelectionModel();
+                if(selectedRecords.getCount()<=0){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un registro',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                if(selectedRecords.getLastSelected().data.codInforme != 'in01'){
+                    Ext.MessageBox.show({
+                        title: 'Seleccion',
+                        msg: 'Seleccione un informe Embarazo Inicial',
+                        buttons: Ext.MessageBox.OK,
+                        icon: Ext.MessageBox.IFO
+                    });
+                    return;
+                }
+                var edit = Ext.create('PForm.view.informe.ecoGinecologica.Formulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
             break;
         }
     },

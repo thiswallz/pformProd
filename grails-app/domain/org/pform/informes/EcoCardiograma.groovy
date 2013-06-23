@@ -2,7 +2,8 @@ package org.pform.informes
 
 import java.util.Date;
 
-class Perfil {
+class EcoCardiograma {
+	
 	//datos geenrales de la entidad
 	Date tableFechaIngreso =  new Date()
 	String rutPac
@@ -34,12 +35,28 @@ class Perfil {
 	String infoEgesLa
 	String infoEgesPresentaLa
 	String infoEgesPresentaLaTabla
-	//Biofisico
-	//****Perfil Biofisico
-	Double biofisPerfilMovCorporales
-	Double biofisPerfilMovRespiratorio
-	Double biofisPerfilTonoFetal
-	Double biofisPerfilLiquidoOvular
+	//Corazon Fetal
+	String coraCfetEje
+	String coraCfetTamano
+	String coraCfetCuatroCamaras
+	String coraCfetTabiqueInterventricular
+	String coraCfetCaractTI
+	String coraCfetForamenOval
+	String coraCfetAuriculoVentricular
+	String coraCfetVentriloArterial
+	String coraCfetFlujosIntracardiacos
+	String coraCfetCayoAortico
+	String coraCfetCayoDuctal
+	String coraCfetDiamentrosCorazon
+	String coraCfetDGrandesVasos
+	String coraCfetGrosorParedes
+	String coraCfetRitmoCardiaco
+	String coraCfetTiempoConduccion
+	String coraCfetDrenajeVenosoDer
+	String coraCfetDrenajeVenosoIzq
+	String coraCfetFrecuenciaCardiaca
+	String coraCfetOtros
+	String coraCfetConclusion
 	//Diagnostico
 	String diagnObservaciones
 	String diagnDiagnosticos
@@ -49,11 +66,12 @@ class Perfil {
 	String diagnDerivada
 	Date diagnCitacion
 	String diagnConclusiones
-	
-    static constraints = {
+
+	static constraints = {
 		infoEgesGemelo nullable: true
 		infoEgesGemelos nullable: true
 		diagnObservaciones maxSize: 1000
 		diagnDiagnosticos maxSize: 1000
-    }
+	}
+	
 }

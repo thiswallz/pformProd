@@ -33,6 +33,7 @@ class SegundoTercerTrimestre {
 	String infoEgesCordon
 	String infoEgesLa
 	String infoEgesPresentaLa
+	String infoEgesPresentaLaTabla
 	//Biometria
 	//****Biometria
 	Double biomGnrlDbp
