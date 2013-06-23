@@ -37,5 +37,14 @@ class EcoDopplersController {
 				render jsonResponseERROR as JSON
 			}
 		}
-	
+		def getFields() {
+			def ecodoppler = EcoDoppler.get(params.id)
+			
+			if(ecodoppler){
+				jsonResponseOK.data = ecodoppler
+				render jsonResponseOK as JSON
+			}else{
+				throw new RuntimeException("Error.")
+			}
+		}
 }

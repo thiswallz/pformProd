@@ -38,4 +38,14 @@ class EcoCardiogramasController {
 			render jsonResponseERROR as JSON
 		}
 	}
+	def getFields() {
+		def ecocardiograma = EcoCardiograma.get(params.id)
+		
+		if(ecocardiograma){
+			jsonResponseOK.data = ecocardiograma
+			render jsonResponseOK as JSON
+		}else{
+			throw new RuntimeException("Error.")
+		}
+	}
 }

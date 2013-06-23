@@ -42,27 +42,27 @@ class GeneralController {
 			resp.add([id: it.id, codInforme: 'in04',informe: 'Informe Perfil', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
-		def distocias = Distocia.findByRutPac(session.pac_rut)
+		def distocias = Distocia.findAllByRutPac(session.pac_rut)
 		distocias.each{
 			resp.add([id: it.id, codInforme: 'in05',informe: 'Informe Distocia', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
-		def ecocardiogramas = EcoCardiograma.findByRutPac(session.pac_rut)
+		def ecocardiogramas = EcoCardiograma.findAllByRutPac(session.pac_rut)
 		ecocardiogramas.each{
 			resp.add([id: it.id, codInforme: 'in06',informe: 'Informe Eco Cardiograma', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
-		def ecocervicales = EcoCervical.findByRutPac(session.pac_rut)
+		def ecocervicales = EcoCervical.findAllByRutPac(session.pac_rut)
 		ecocervicales.each{
 			resp.add([id: it.id, codInforme: 'in07',informe: 'Informe Eco Cervical', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
-		def ecodoppler = EcoDoppler.findByRutPac(session.pac_rut)
+		def ecodoppler = EcoDoppler.findAllByRutPac(session.pac_rut)
 		ecodoppler.each{
 			resp.add([id: it.id, codInforme: 'in08',informe: 'Informe Eco Doppler', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			
 		}
-		def ecoginecologicas = EcoGinecologica.findByRutPac(session.pac_rut)
+		def ecoginecologicas = EcoGinecologica.findAllByRutPac(session.pac_rut)
 		ecoginecologicas.each{
 			resp.add([id: it.id, codInforme: 'in09',informe: 'Informe Eco Ginecologica', fecha: it.tableFechaIngreso, doctor: it.diagnEcografista])
 			

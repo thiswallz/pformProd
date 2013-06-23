@@ -3,10 +3,26 @@ Ext.define('PForm.controller.admin.ControlGeneral', {
 
     stores: ['Recordatorios'],
 
-    models: ['Recordatorio', 'EmbarazoInicial'],
+    models: ['Recordatorio', 'EmbarazoInicial','PrimerTrimestre'
+    ,'SegundoTercerTrimestre'
+    ,'Perfil'
+    ,'EcoGinecologica'
+    ,'EcoDoppler'
+    ,'EcoCervical'
+    ,'EcoCardiograma'
+    ,'Distocia'
+    ],
 
     views: ['admin.MenuTop' , 'admin.Principal','admin.Home','admin.Ficha','admin.Grid','admin.seleccionInformes',
-    'informe.embarazoInicial.ViewFormulario'],
+    'informe.embarazoInicial.ViewFormulario','informe.primerTrimestre.ViewFormulario'
+    ,'informe.primerTrimestre.ViewFormulario'
+    ,'informe.segundoTercerTrimestre.ViewFormulario'
+    ,'informe.perfil.ViewFormulario'
+    ,'informe.ecoGinecologica.ViewFormulario'
+    ,'informe.ecoDoppler.ViewFormulario'
+    ,'informe.ecoCervical.ViewFormulario'
+    ,'informe.ecoCardiograma.ViewFormulario'
+    ,'informe.distocia.ViewFormulario'],
 
     refs: [{
             ref: 'admingrid',
@@ -74,7 +90,46 @@ Ext.define('PForm.controller.admin.ControlGeneral', {
 
             return;
         }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in02'){
+            var win = Ext.create('PForm.view.informe.primerTrimestre.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
 
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in03'){
+            var win = Ext.create('PForm.view.informe.segundoTercerTrimestre.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in04'){
+            var win = Ext.create('PForm.view.informe.perfil.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in05'){
+            var win = Ext.create('PForm.view.informe.distocia.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in06'){
+            var win = Ext.create('PForm.view.informe.ecoCardiograma.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in07'){
+            var win = Ext.create('PForm.view.informe.ecoCervical.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in08'){
+            var win = Ext.create('PForm.view.informe.ecoDoppler.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
+        if(selectedRecords.getLastSelected().data.codInforme == 'in09'){
+            var win = Ext.create('PForm.view.informe.ecoGinecologica.ViewFormulario', {idInforme: selectedRecords.getLastSelected().data.id}).show();
+
+            return;
+        }
     },
     salir: function(){
         Ext.Ajax.request({

@@ -37,4 +37,14 @@ class DistociasController {
 			render jsonResponseERROR as JSON
 		}
 	}
+	def getFields() {
+		def distocia = Distocia.get(params.id)
+		
+		if(distocia){
+			jsonResponseOK.data = distocia
+			render jsonResponseOK as JSON
+		}else{
+			throw new RuntimeException("Error.")
+		}
+	}
 }

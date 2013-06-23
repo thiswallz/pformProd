@@ -48,4 +48,14 @@ class SegundoTercerTrimestresController {
 			throw new RuntimeException("Error.")
 		}
 	}
+	def getFields() {
+		def stercertrm = SegundoTercerTrimestre.get(params.id)
+		
+		if(stercertrm){
+			jsonResponseOK.data = stercertrm
+			render jsonResponseOK as JSON
+		}else{
+			throw new RuntimeException("Error.")
+		}
+	}
 }

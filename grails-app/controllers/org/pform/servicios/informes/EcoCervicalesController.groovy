@@ -37,4 +37,14 @@ class EcoCervicalesController {
 			render jsonResponseERROR as JSON
 		}
 	}
+	def getFields() {
+		def ecocervical = EcoCervical.get(params.id)
+		
+		if(ecocervical){
+			jsonResponseOK.data = ecocervical
+			render jsonResponseOK as JSON
+		}else{
+			throw new RuntimeException("Error.")
+		}
+	}
 }
