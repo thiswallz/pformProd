@@ -28,6 +28,13 @@ Ext.define('PForm.view.informe.embarazoInicial.ViewFormulario', {
                     var mod = new PForm.model.EmbarazoInicial(jsonin.data)
                     form.loadRecord(mod)
 
+                    console.log(jsonin.data.imgPath01)
+                    if(jsonin.data.imgPath01)
+                        me.down('#Img01Id').setSrc('photos/'+jsonin.data.imgPath01);
+                    if(jsonin.data.imgPath02)
+                        me.down('#Img02Id').setSrc('photos/'+jsonin.data.imgPath02);         
+                    if(jsonin.data.imgPath03)
+                        me.down('#Img03Id').setSrc('photos/'+jsonin.data.imgPath03);
                 },
                 failure: function(response){
                     Ext.MessageBox.show({
@@ -130,7 +137,37 @@ Ext.define('PForm.view.informe.embarazoInicial.ViewFormulario', {
                                 name : 'infoObservaciones',
                                 hideLabel: true
                             }]
-                        }]
+                        },{
+                            xtype: 'fieldset',
+                            title: 'Imagenes',
+                            items: [{
+                                xtype: 'container',
+                                layout: {
+                                    type:'hbox'
+                                },
+                                itemId: 'containerImgId',
+                                items: [{
+                                    xtype: 'image',
+                                    padding: '5 5 5 5',
+                                    height: 90,
+                                    width: 90,
+                                    itemId: 'Img01Id'
+                                },{
+                                    xtype: 'image',
+                                    padding: '5 5 5 5',
+                                    height: 90,
+                                    width: 90,
+                                    itemId: 'Img02Id'
+                                },{
+                                    xtype: 'image',
+                                    padding: '5 5 5 5',
+                                    height: 90,
+                                    width: 90,
+                                    itemId: 'Img03Id'
+                                }]
+                            }
+                        ]
+                     }]
                     },{
                         title: 'Diagnosticos',
                         items:[{
